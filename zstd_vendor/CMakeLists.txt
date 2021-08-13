@@ -32,6 +32,9 @@ macro(build_zstd)
   ExternalProject_Add(zstd-1.4.4
     URL https://github.com/facebook/zstd/archive/v1.4.4.zip
     URL_MD5 3a5c3a535280b7f4dfdbd739fcc7173f
+    # Suppress git update due to https://gitlab.kitware.com/cmake/cmake/-/issues/16419
+    # See https://github.com/ament/uncrustify_vendor/pull/22 for details
+    UPDATE_COMMAND ""
     TIMEOUT 60
     SOURCE_SUBDIR build/cmake
     CMAKE_ARGS
@@ -45,7 +48,7 @@ macro(build_zstd)
       ${CMAKE_COMMAND} -E chdir <SOURCE_DIR> git apply -p1 --ignore-space-change --whitespace=nowarn
         ${CMAKE_CURRENT_SOURCE_DIR}/cmake_minimum_required_2.8.12.patch &&
       ${CMAKE_COMMAND} -E chdir <SOURCE_DIR> git apply -p1 --ignore-space-change --whitespace=nowarn
-          ${CMAKE_CURRENT_SOURCE_DIR}/no_internal_headers.patch
+        ${CMAKE_CURRENT_SOURCE_DIR}/no_internal_headers.patch
   )
 
   install(
