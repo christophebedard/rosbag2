@@ -30,8 +30,9 @@ macro(build_zstd)
   # The CMakeLists.txt file for zstd is in a subdirectory.
   # We need to configure the CMake command to build from there instead.
   ExternalProject_Add(zstd-1.4.4
-    URL https://github.com/facebook/zstd/archive/v1.4.4.zip
-    URL_MD5 3a5c3a535280b7f4dfdbd739fcc7173f
+    GIT_REPOSITORY https://github.com/facebook/zstd.git
+    GIT_TAG v1.4.4
+    GIT_CONFIG advice.detachedHead=false
     # Suppress git update due to https://gitlab.kitware.com/cmake/cmake/-/issues/16419
     # See https://github.com/ament/uncrustify_vendor/pull/22 for details
     UPDATE_COMMAND ""
